@@ -1,0 +1,284 @@
+{
+  "same_model_v4_to_v6": {
+    "qwen3_06b": {
+      "mean_full_meteor_delta": 0.016821981233954324,
+      "full_improved": 65,
+      "full_decreased": 34,
+      "mean_conclusion_meteor_delta": -0.013853181794124592,
+      "conclusion_improved": 42,
+      "conclusion_decreased": 57
+    },
+    "qwen3_17b": {
+      "mean_full_meteor_delta": -0.023075240380050013,
+      "full_improved": 33,
+      "full_decreased": 66,
+      "mean_conclusion_meteor_delta": -0.00951236341383784,
+      "conclusion_improved": 53,
+      "conclusion_decreased": 45
+    },
+    "qwen25_3b": {
+      "mean_full_meteor_delta": 0.010518166396474396,
+      "full_improved": 53,
+      "full_decreased": 47,
+      "mean_conclusion_meteor_delta": 0.039808188054972285,
+      "conclusion_improved": 59,
+      "conclusion_decreased": 37
+    }
+  },
+  "v6_groups": {
+    "qwen3_06b": {
+      "category:condition": {
+        "count": 8,
+        "v4_full_meteor": 0.7283336275018282,
+        "v6_full_meteor": 0.7355937610202488,
+        "v4_conclusion_meteor": 0.37675074725748703,
+        "v6_conclusion_meteor": 0.34240778635174385,
+        "v6_mean_generated_words": 64.625,
+        "mean_reference_words": 137.625
+      },
+      "category:number_or_time": {
+        "count": 11,
+        "v4_full_meteor": 0.7261585158750488,
+        "v6_full_meteor": 0.7551440807043796,
+        "v4_conclusion_meteor": 0.4089937052978893,
+        "v6_conclusion_meteor": 0.518287428377718,
+        "v6_mean_generated_words": 58.0,
+        "mean_reference_words": 93.9090909090909
+      },
+      "category:other": {
+        "count": 35,
+        "v4_full_meteor": 0.7539284715148392,
+        "v6_full_meteor": 0.7825429565202925,
+        "v4_conclusion_meteor": 0.4013962090249298,
+        "v6_conclusion_meteor": 0.43450068840527784,
+        "v6_mean_generated_words": 59.42857142857143,
+        "mean_reference_words": 78.54285714285714
+      },
+      "category:procedure_or_list": {
+        "count": 16,
+        "v4_full_meteor": 0.7468501293004871,
+        "v6_full_meteor": 0.7673164760567137,
+        "v4_conclusion_meteor": 0.3493769011622129,
+        "v6_conclusion_meteor": 0.3505977598109864,
+        "v6_mean_generated_words": 97.9375,
+        "mean_reference_words": 87.5
+      },
+      "category:subject": {
+        "count": 9,
+        "v4_full_meteor": 0.8346013668988022,
+        "v6_full_meteor": 0.8151201366319248,
+        "v4_conclusion_meteor": 0.5601441116037221,
+        "v6_conclusion_meteor": 0.31124242487493997,
+        "v6_mean_generated_words": 31.88888888888889,
+        "mean_reference_words": 51.77777777777778
+      },
+      "category:yes_no": {
+        "count": 21,
+        "v4_full_meteor": 0.7309387685870469,
+        "v6_full_meteor": 0.7381596443602296,
+        "v4_conclusion_meteor": 0.32287088036947703,
+        "v6_conclusion_meteor": 0.26330512883718427,
+        "v6_mean_generated_words": 40.0,
+        "mean_reference_words": 88.57142857142857
+      },
+      "length:long_gt_120": {
+        "count": 25,
+        "v4_full_meteor": 0.6510140276468771,
+        "v6_full_meteor": 0.6697151710291571,
+        "v4_conclusion_meteor": 0.294721301662334,
+        "v6_conclusion_meteor": 0.3107051332975739,
+        "v6_mean_generated_words": 69.48,
+        "mean_reference_words": 183.6
+      },
+      "length:medium_41_120": {
+        "count": 48,
+        "v4_full_meteor": 0.7673401950565496,
+        "v6_full_meteor": 0.7758676255351461,
+        "v4_conclusion_meteor": 0.39479444280899467,
+        "v6_conclusion_meteor": 0.3690798928606817,
+        "v6_mean_generated_words": 56.083333333333336,
+        "mean_reference_words": 68.39583333333333
+      },
+      "length:short_le_40": {
+        "count": 27,
+        "v4_full_meteor": 0.8112947279628971,
+        "v6_full_meteor": 0.8411226122542231,
+        "v4_conclusion_meteor": 0.4687131172817426,
+        "v6_conclusion_meteor": 0.4483199479197266,
+        "v6_mean_generated_words": 55.55555555555556,
+        "mean_reference_words": 27.25925925925926
+      }
+    },
+    "qwen3_17b": {
+      "category:condition": {
+        "count": 8,
+        "v4_full_meteor": 0.7545484990592747,
+        "v6_full_meteor": 0.6907671857219864,
+        "v4_conclusion_meteor": 0.3439336372816604,
+        "v6_conclusion_meteor": 0.2964237194408823,
+        "v6_mean_generated_words": 60.5,
+        "mean_reference_words": 137.625
+      },
+      "category:number_or_time": {
+        "count": 11,
+        "v4_full_meteor": 0.7656733742344276,
+        "v6_full_meteor": 0.7191224512565761,
+        "v4_conclusion_meteor": 0.42462265436965296,
+        "v6_conclusion_meteor": 0.35089853572573454,
+        "v6_mean_generated_words": 45.45454545454545,
+        "mean_reference_words": 93.9090909090909
+      },
+      "category:other": {
+        "count": 35,
+        "v4_full_meteor": 0.7813997449476807,
+        "v6_full_meteor": 0.7685977245620018,
+        "v4_conclusion_meteor": 0.4128281882961512,
+        "v6_conclusion_meteor": 0.42111961822419275,
+        "v6_mean_generated_words": 73.17142857142858,
+        "mean_reference_words": 78.54285714285714
+      },
+      "category:procedure_or_list": {
+        "count": 16,
+        "v4_full_meteor": 0.7631390212485398,
+        "v6_full_meteor": 0.7540944231781728,
+        "v4_conclusion_meteor": 0.3350218826574701,
+        "v6_conclusion_meteor": 0.37972581788288845,
+        "v6_mean_generated_words": 111.125,
+        "mean_reference_words": 87.5
+      },
+      "category:subject": {
+        "count": 9,
+        "v4_full_meteor": 0.8576495549644081,
+        "v6_full_meteor": 0.8225325878906146,
+        "v4_conclusion_meteor": 0.6531800436159158,
+        "v6_conclusion_meteor": 0.5529645513206864,
+        "v6_mean_generated_words": 55.0,
+        "mean_reference_words": 51.77777777777778
+      },
+      "category:yes_no": {
+        "count": 21,
+        "v4_full_meteor": 0.7619232886158608,
+        "v6_full_meteor": 0.7440006032700728,
+        "v4_conclusion_meteor": 0.31164639287762197,
+        "v6_conclusion_meteor": 0.3181361417345011,
+        "v6_mean_generated_words": 53.523809523809526,
+        "mean_reference_words": 88.57142857142857
+      },
+      "length:long_gt_120": {
+        "count": 25,
+        "v4_full_meteor": 0.6642574567340628,
+        "v6_full_meteor": 0.6468511619698718,
+        "v4_conclusion_meteor": 0.28893475286499454,
+        "v6_conclusion_meteor": 0.27707422904418083,
+        "v6_mean_generated_words": 63.96,
+        "mean_reference_words": 183.6
+      },
+      "length:medium_41_120": {
+        "count": 48,
+        "v4_full_meteor": 0.8016508526201883,
+        "v6_full_meteor": 0.7724970303431523,
+        "v4_conclusion_meteor": 0.3956155482612933,
+        "v6_conclusion_meteor": 0.40131829597171675,
+        "v6_mean_generated_words": 63.375,
+        "mean_reference_words": 68.39583333333333
+      },
+      "length:short_le_40": {
+        "count": 27,
+        "v4_full_meteor": 0.8389469716181667,
+        "v6_full_meteor": 0.8214290753365929,
+        "v4_conclusion_meteor": 0.4978494264448386,
+        "v6_conclusion_meteor": 0.4634621991869212,
+        "v6_mean_generated_words": 85.22222222222223,
+        "mean_reference_words": 27.25925925925926
+      }
+    },
+    "qwen25_3b": {
+      "category:condition": {
+        "count": 8,
+        "v4_full_meteor": 0.7295287321802364,
+        "v6_full_meteor": 0.7294324527004148,
+        "v4_conclusion_meteor": 0.43235536536113534,
+        "v6_conclusion_meteor": 0.48773542409872944,
+        "v6_mean_generated_words": 85.5,
+        "mean_reference_words": 137.625
+      },
+      "category:number_or_time": {
+        "count": 11,
+        "v4_full_meteor": 0.7168362713328306,
+        "v6_full_meteor": 0.742453209987826,
+        "v4_conclusion_meteor": 0.3360338459745439,
+        "v6_conclusion_meteor": 0.4049263857637794,
+        "v6_mean_generated_words": 48.27272727272727,
+        "mean_reference_words": 93.9090909090909
+      },
+      "category:other": {
+        "count": 35,
+        "v4_full_meteor": 0.7700303512932902,
+        "v6_full_meteor": 0.7962921916346716,
+        "v4_conclusion_meteor": 0.4530486430215905,
+        "v6_conclusion_meteor": 0.5143589155077909,
+        "v6_mean_generated_words": 77.34285714285714,
+        "mean_reference_words": 78.54285714285714
+      },
+      "category:procedure_or_list": {
+        "count": 16,
+        "v4_full_meteor": 0.7592222137271978,
+        "v6_full_meteor": 0.7536715220561476,
+        "v4_conclusion_meteor": 0.3229206765361303,
+        "v6_conclusion_meteor": 0.3515230929247732,
+        "v6_mean_generated_words": 87.0625,
+        "mean_reference_words": 87.5
+      },
+      "category:subject": {
+        "count": 9,
+        "v4_full_meteor": 0.8431282325229204,
+        "v6_full_meteor": 0.8516715968444888,
+        "v4_conclusion_meteor": 0.5721834623724336,
+        "v6_conclusion_meteor": 0.5821549139980253,
+        "v6_mean_generated_words": 37.0,
+        "mean_reference_words": 51.77777777777778
+      },
+      "category:yes_no": {
+        "count": 21,
+        "v4_full_meteor": 0.7653322371944472,
+        "v6_full_meteor": 0.7588349479647045,
+        "v4_conclusion_meteor": 0.35991499615831307,
+        "v6_conclusion_meteor": 0.36404447873208734,
+        "v6_mean_generated_words": 54.42857142857143,
+        "mean_reference_words": 88.57142857142857
+      },
+      "length:long_gt_120": {
+        "count": 25,
+        "v4_full_meteor": 0.6333004701458794,
+        "v6_full_meteor": 0.6657635380751727,
+        "v4_conclusion_meteor": 0.2545867420442127,
+        "v6_conclusion_meteor": 0.378932878211472,
+        "v6_mean_generated_words": 85.24,
+        "mean_reference_words": 183.6
+      },
+      "length:medium_41_120": {
+        "count": 48,
+        "v4_full_meteor": 0.7872908604548986,
+        "v6_full_meteor": 0.7924771744086473,
+        "v4_conclusion_meteor": 0.4458136518341773,
+        "v6_conclusion_meteor": 0.482504353033752,
+        "v6_mean_generated_words": 65.02083333333333,
+        "mean_reference_words": 68.39583333333333
+      },
+      "length:short_le_40": {
+        "count": 27,
+        "v4_full_meteor": 0.8465816509374409,
+        "v6_full_meteor": 0.8462593128498548,
+        "v4_conclusion_meteor": 0.48602928890642466,
+        "v6_conclusion_meteor": 0.45310379793369,
+        "v6_mean_generated_words": 57.0,
+        "mean_reference_words": 27.25925925925926
+      }
+    }
+  },
+  "oracle_two_candidate_full_meteor": 0.7992321815057518,
+  "oracle_two_candidate_wins": {
+    "v4_qwen3_17b": 56,
+    "v6_qwen25_3b": 44
+  }
+}

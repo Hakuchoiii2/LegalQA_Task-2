@@ -1,0 +1,15 @@
+[
+  {
+    "id": "example-001",
+    "question": "Theo tài liệu minh họa, hồ sơ được tiếp nhận vào thời gian nào?",
+    "contexts": [
+      {
+        "text": "Ví dụ giả lập dùng kiểm tra pipeline: hồ sơ được tiếp nhận trong giờ làm việc.",
+        "document": {"name": "Tài liệu minh họa, không phải văn bản pháp luật"},
+        "article": "",
+        "clause": "",
+        "document_number": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+# Only publish the production project and project documentation.
+/*
+!/.gitignore
+!/README.md
+!/legalQA_Task2/
+!/legalQA_Task2/**
+!/docs/
+!/docs/**
+!/reports/
+!/reports/**
+
+# Generated/temporary files inside the allowed folders.
+__pycache__/
+**/__pycache__/
+*.py[cod]
+~$*
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+.venv/
+# Project-specific exclusions are in legalQA_Task2/.gitignore.
+legalQA_Task2/configs/production.json
+legalQA_Task2/kaggle/settings.json
+legalQA_Task2/.cache/
+legalQA_Task2/outputs/
+legalQA_Task2/build/
+legalQA_Task2/downloads/
+legalQA_Task2/data/
+legalQA_Task2/models/

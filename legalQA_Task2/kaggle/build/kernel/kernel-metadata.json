@@ -1,0 +1,18 @@
+{
+  "id": "khihtn/dsc2026-legalqa-v83-full-hard-production",
+  "title": "DSC2026 LegalQA V83 Full Hard Production",
+  "code_file": "run_legalqa_production_kaggle.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_internet": "true",
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "khihtn/dsc2026-legalqa-production-inputs",
+    "khihtn/dsc2026-legalqa-qlora-v8-adapter"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
