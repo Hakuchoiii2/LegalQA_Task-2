@@ -30,8 +30,7 @@ Lần thiết lập đầu tiên, nếu chưa có config cá nhân, copy
 Đặt JSON retrieval vào `inputs/`, rồi sửa `input_json` trong config để chọn file.
 
 Adapter local nằm tại `legalQA_Task2/models/adapter/`. Nếu đã có adapter thì dùng
-luôn; nếu clone code từ GitHub và chưa có weights, làm theo mục tải adapter
-trong [hướng dẫn production](legalQA_Task2/README.md).
+luôn; nếu clone code từ GitHub và chưa có adpater thì làm theo hướng dẫn tải adapter bên dưới
 
 ## Tải model và adapter
 

@@ -42,11 +42,6 @@ adapter, không cần ghi đè. Cài PyTorch phù hợp GPU nếu muốn chạy 
 vẫn chạy được nhưng chậm hơn.
 
 ## Chạy với adapter có sẵn
-
-Project trên máy hiện tại đã có adapter V8.3 trong `models/adapter/`, gồm
-`adapter_config.json` và `adapter_model.safetensors`. **Không cần tải lại
-adapter hoặc đăng nhập Kaggle để chạy local với các file đã có.**
-
 Giữ `adapter.local_path` trong `configs/production.json` là `models/adapter`.
 Sau khi cài dependencies, chỉ cần chọn input và chạy theo mục tiếp theo.
 
