@@ -98,24 +98,3 @@ Vào `legalQA_Task2/`, cấu hình `kaggle/settings.json` từ file mẫu
 `kaggle/settings.example.json`. Chọn input dataset và adapter dataset đã có
 trên Kaggle. Quy trình build, upload, cập nhật dataset và tải kết quả được mô tả
 trong [README production](legalQA_Task2/README.md#chạy-kaggle).
-
-## Phạm vi Git
-
-Khởi tạo Git ở **thư mục gốc DSC2026**, không khởi tạo thêm trong `legalQA_Task2/`.
-`.gitignore` ngoài chỉ cho phép `legalQA_Task2/`, `docs/`, `reports/`, README
-và chính file `.gitignore` được đưa vào repo. Các quy tắc trong
-`legalQA_Task2/.gitignore` tiếp tục loại settings cá nhân, input thật, weights,
-cache, build và outputs. File tạm Word `~$...` cũng được bỏ qua.
-
-Vì vậy adapter và dữ liệu có trên máy local **không tự đi kèm bản clone GitHub**.
-Các config mẫu và input giả lập vẫn được giữ để thiết lập trên máy khác.
-
-```powershell
-# Chạy tại DSC2026 khi bắt đầu quản lý repo
-git init -b main
-git add .
-git status --short
-```
-
-Kiểm tra danh sách file trước khi commit và push. Giữ settings cá nhân trong các
-file đã được ignore; chỉnh sửa nội dung tài liệu trước khi công khai nếu cần.
