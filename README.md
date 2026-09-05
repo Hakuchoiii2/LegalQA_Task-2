@@ -33,6 +33,36 @@ Adapter local nằm tại `legalQA_Task2/models/adapter/`. Nếu đã có adapte
 luôn; nếu clone code từ GitHub và chưa có weights, làm theo mục tải adapter
 trong [hướng dẫn production](legalQA_Task2/README.md).
 
+## Tải model và adapter
+
+Tải gói `models` đầy đủ tại:
+
+```text
+https://drive.google.com/drive/folders/1zhA5YaYexwd2pB6Rrimfyswz_Or3yqmY?usp=sharing
+```
+
+Sau khi tải, giải nén hoặc copy nguyên folder `models` vào thư mục
+`legalQA_Task2/` sao cho cấu trúc cuối cùng là:
+
+```text
+legalQA_Task2/
+└── models/
+    └── adapter/
+        ├── adapter_config.json
+        └── adapter_model.safetensors
+```
+
+Không đặt thành `legalQA_Task2/models/models/`. Folder `models/` được Git bỏ qua
+để tránh đưa model weights lên GitHub; nó vẫn cần có trên máy local khi chạy
+inference. Sau khi copy xong, kiểm tra hai file bắt buộc:
+
+```powershell
+Test-Path legalQA_Task2\models\adapter\adapter_config.json
+Test-Path legalQA_Task2\models\adapter\adapter_model.safetensors
+```
+
+Nếu cả hai lệnh trả về `True`, chạy pipeline theo hướng dẫn bên dưới.
+
 Sau khi chuẩn bị input và adapter:
 
 ```powershell
