@@ -3,6 +3,10 @@
 Pipeline end-to-end: JSON retrieval → Qwen3-1.7B + QLoRA adapter →
 `answers.json`, `run_metrics.json`, `details.jsonl`.
 
+Module retrieval trong `ChanTaooDe--main/` được nối qua
+`scripts/run_retrieval.py`. Xem [thực nghiệm Kaggle](experiments/README.md)
+để chạy retrieval → LLM, so sánh base/adapter và đánh giá có kiểm soát.
+
 ## Cấu trúc
 
 ```text

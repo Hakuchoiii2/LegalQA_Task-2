@@ -1,0 +1,11 @@
+{
+  "packages": "packages.json",
+  "split_manifest": null,
+  "labels": null,
+  "oracle_packages": null,
+  "models": ["base", "adapter"],
+  "top_k": 1,
+  "seed": 2026,
+  "limit": 20,
+  "score_threshold": 0.5
+}

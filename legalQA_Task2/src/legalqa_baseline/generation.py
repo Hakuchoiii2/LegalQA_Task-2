@@ -705,7 +705,6 @@ class QwenGenerator:
             elif (
                 target == "conclusion"
                 and not expanded_token_retry
-                and attempts[0].get("quality_issues")
                 and should_expand_conclusion_retry(
                     raw_output=text,
                     parsed=parsed,
@@ -852,7 +851,14 @@ class QwenGenerator:
                 else None
             ),
             "expanded_retry_accepted": bool(
-                expanded_conclusion_retry and quality_retry_accepted
+                expanded_conclusion_retry
+                and (
+                    quality_retry_accepted
+                    or (
+                        not initial["parsed"].conclusion
+                        and expanded_conclusion_retry["parsed"].valid
+                    )
+                )
             ),
             "expanded_retry_selection_reasons": (
                 quality_retry_selection_reasons
