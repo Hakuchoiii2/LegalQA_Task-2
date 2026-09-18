@@ -558,14 +558,101 @@ class QwenGenerator:
             **kwargs,
         )
 
-    def generate(
+    def generate(self, question, context, citation_metadata, seed, fewshot_examples=None):
+        steps = self._generate_steps(question, context, citation_metadata, seed, fewshot_examples)
+        request = next(steps)
+        while True:
+            encoded, kwargs = request
+            started = time.perf_counter()
+            with self.torch.inference_mode():
+                output = self.model.generate(**encoded, **kwargs)
+            generated = output[0, encoded["input_ids"].shape[1]:]
+            elapsed = time.perf_counter() - started
+            try:
+                request = steps.send((generated, elapsed))
+            except StopIteration as completed:
+                return completed.value
+
+    def generate_batch(self, items):
+        # Greedy production can batch safely; keep sampling's per-question RNG isolation.
+        if self.decoding_mode != "greedy":
+            return [self.generate(**item) for item in items]
+        self._batch_limit = min(getattr(self, "_batch_limit", len(items)), len(items)) if items else 1
+        steps = [self._generate_steps(**item) for item in items]
+        pending = {i: next(step) for i, step in enumerate(steps)}
+        results = [None] * len(items)
+        while pending:
+            groups = {}
+            for index, request in pending.items():
+                key = tuple(sorted(request[1].items()))
+                groups.setdefault(key, []).append((index, request))
+            pending = {}
+            for group in groups.values():
+                start = 0
+                while start < len(group):
+                    chunk = group[start:start + self._batch_limit]
+                    outputs = self._run_batch_requests([request for _, request in chunk])
+                    start += len(chunk)
+                    if len(outputs) != len(chunk):
+                        raise RuntimeError("Batch output count does not match input count")
+                    for (index, _), output in zip(chunk, outputs):
+                        try:
+                            pending[index] = steps[index].send(output)
+                        except StopIteration as completed:
+                            results[index] = completed.value
+        return results
+
+    def _run_batch_requests(self, requests):
+        try:
+            return self._run_batch_once(requests)
+        except self.torch.cuda.OutOfMemoryError:
+            if len(requests) == 1:
+                raise
+            self._batch_limit = min(self._batch_limit, max(1, len(requests) // 2))
+            print(f"CUDA OOM: reducing batch on {self.device if hasattr(self, 'device') else 'GPU'} "
+                  f"to {self._batch_limit}", flush=True)
+        # Release failed generate tensors before retrying smaller batches.
+        import gc
+        gc.collect()
+        self.torch.cuda.empty_cache()
+        middle = len(requests) // 2
+        return (self._run_batch_requests(requests[:middle])
+                + self._run_batch_requests(requests[middle:]))
+
+    def _run_batch_once(self, requests):
+        width = max(encoded["input_ids"].shape[1] for encoded, _ in requests)
+        pad_id = self.tokenizer.eos_token_id
+        encoded_batch = {}
+        # Decoder-only generation must left-pad and mask padding, including EOS padding.
+        for key, pad_value in (("input_ids", pad_id), ("attention_mask", 0)):
+            encoded_batch[key] = self.torch.cat([
+                self.torch.nn.functional.pad(encoded[key],
+                    (width - encoded["input_ids"].shape[1], 0), value=pad_value)
+                for encoded, _ in requests
+            ], dim=0)
+        started = time.perf_counter()
+        with self.torch.inference_mode():
+            output = self.model.generate(**encoded_batch, **requests[0][1])
+        eos = self.model.generation_config.eos_token_id
+        eos_ids = set(eos if isinstance(eos, (list, tuple)) else [eos])
+        eos_ids.add(pad_id)
+        generated = []
+        for row in output[:, width:]:
+            # Remove per-sequence padding so short answers don't look token-limited.
+            ids = row.tolist()
+            length = next((i + 1 for i, token in enumerate(ids) if token in eos_ids), len(ids))
+            generated.append(row[:length])
+        elapsed = (time.perf_counter() - started) / len(requests)
+        return [(tokens, elapsed) for tokens in generated]
+
+    def _generate_steps(
         self,
         question: str,
         context: str,
         citation_metadata: dict[str, list[str]],
         seed: int,
         fewshot_examples: list[dict] | None = None,
-    ) -> dict[str, Any]:
+    ):
         max_input_tokens = int(self.config["max_input_tokens"])
         base_prompt_max_input_tokens = int(
             self.config.get("base_prompt_max_input_tokens", max_input_tokens)
@@ -623,7 +710,6 @@ class QwenGenerator:
             self.torch.manual_seed(attempt_seed)
             if self.torch.cuda.is_available():
                 self.torch.cuda.manual_seed_all(attempt_seed)
-            started = time.perf_counter()
             if target == "both":
                 max_new_tokens = int(self.config["max_new_tokens"])
             elif target == "lead":
@@ -657,10 +743,7 @@ class QwenGenerator:
                     generation_kwargs.update(
                         {"temperature": 0.7, "top_p": 0.8, "top_k": 20}
                     )
-            with self.torch.inference_mode():
-                output = self.model.generate(**encoded, **generation_kwargs)
-            elapsed = time.perf_counter() - started
-            generated = output[0, encoded["input_ids"].shape[1] :]
+            generated, elapsed = yield encoded, generation_kwargs
             text = self.tokenizer.decode(generated, skip_special_tokens=True).strip()
             parsed = (
                 parse_model_output(text)

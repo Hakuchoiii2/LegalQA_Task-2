@@ -173,3 +173,37 @@ python scripts/download_adapter.py
 ```
 
 Script tải chỉ dùng để bổ sung file còn thiếu; không ghi đè adapter đã tồn tại.
+
+## Dual GPU và batch inference
+
+Mặc định inference tự dùng tối đa **2 GPU**, mỗi GPU một process/model riêng và
+**batch 10 câu/GPU** (tối đa 20 câu cùng lúc). Máy chỉ có một GPU hoặc CPU vẫn chạy
+được. Input được chia xen kẽ; seed vẫn bằng seed gốc + vị trí câu trong input;
+answers/details được ghép về đúng thứ tự. Worker lỗi sẽ làm run thất bại, không
+xuất bộ kết quả thiếu câu như thể đã hoàn tất.
+
+```powershell
+# Tự nhận GPU, batch 10 trên mỗi GPU (Kaggle cũng dùng mặc định này)
+python scripts/run_inference.py --batch-size 10
+# Bắt buộc có hai GPU
+python scripts/run_inference.py --gpu-count 2 --batch-size 10
+# Chạy đối chứng theo luồng tuần tự
+python scripts/run_inference.py --gpu-count 1 --batch-size 1
+```
+
+Batch áp dụng cho decoding greedy, gồm lượt đầu và các retry có cùng ngân sách
+token. Sampling dùng từng câu để giữ seed riêng. CUDA hết VRAM sẽ chia nhỏ batch
+và ghi log; nếu một câu riêng vẫn hết VRAM thì run báo lỗi. Không tăng giới hạn
+token hay đổi quality gate. Với tính toán GPU, batching có thể làm thay đổi đáp
+án dù giữ greedy/seed; cần so sánh độ đầy đủ và chất lượng trước khi thay bản chạy.
+
+`run_metrics.json` ghi `gpu_count`, `worker_count`, `batch_size_per_worker`
+(kích thước yêu cầu, có thể giảm khi OOM), `sample_latency_mode` và
+`timing_includes_model_loading`. Khi batch, latency từng câu được phân bổ từ
+thời gian lượt sinh chung; dùng `elapsed_seconds` toàn run để đo tốc độ thực tế.
+Thời gian run mới bao gồm tải model, khác cách tính phiên bản tuần tự cũ.
+
+`kaggle.ps1 push-kernel` tự build lại code mới. Runtime phải được cấp hai GPU
+thì log mới ghi `Inference: 2 GPU, 2 worker(s), batch_size=10/worker`;
+chỉ bật GPU trong metadata không bảo đảm runtime có hai thiết bị. Chưa có kết
+quả benchmark dual GPU trong máy kiểm thử local.
